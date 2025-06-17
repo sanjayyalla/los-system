@@ -3,6 +3,7 @@ package com.jocata.los.dao.impl;
 import com.jocata.los.dao.AddressDao;
 import com.jocata.los.entity.Address;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class AddressDaoImpl implements AddressDao {
 
+    @PersistenceContext
     @Autowired
     private EntityManager entityManager;
 

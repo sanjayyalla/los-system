@@ -3,6 +3,7 @@ package com.jocata.los.dao.impl;
 import com.jocata.los.dao.CustomerDao;
 import com.jocata.los.entity.Customer;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class CustomerDaoImpl implements CustomerDao {
     @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

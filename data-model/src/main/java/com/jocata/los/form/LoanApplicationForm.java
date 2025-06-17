@@ -1,9 +1,13 @@
 package com.jocata.los.form;
 
-public class LoanApplicationForm {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class LoanApplicationForm {
+    @JsonProperty("customer")
     private CustomerForm customerForm;
+    @JsonProperty("loanDetails")
     private LoanDetailsForm loanDetailsForm;
+    @JsonProperty("incomeDetails")
     private IncomeDetailsForm incomeDetailsForm;
 
     public CustomerForm getCustomerForm() {

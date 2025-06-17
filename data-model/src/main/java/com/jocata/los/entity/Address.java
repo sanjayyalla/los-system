@@ -1,7 +1,7 @@
 package com.jocata.los.entity;
 
 import jakarta.persistence.*;
-
+@Entity
 public class Address {
 
     @Id

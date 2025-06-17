@@ -1,4 +1,4 @@
--- drop database los;  
+drop database los;
 CREATE DATABASE los;
 use los;
 CREATE TABLE customers (
@@ -9,7 +9,6 @@ CREATE TABLE customers (
     phone_number VARCHAR(20),
     aadhar_number VARCHAR(20) UNIQUE,
     pan_number VARCHAR(20) UNIQUE,
-    address TEXT,
     dob DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -41,7 +40,7 @@ CREATE TABLE loan_applications (
     loan_amount DECIMAL(15,2),
     loan_type VARCHAR(50),
     application_date DATE,
-    status ENUM('Pending', 'Accepted', 'Rejected', 'In Process'),
+    status ENUM('PENDING', 'APPROVED', 'REJECTED', 'IN_PROCESS'),
     approval_amount DECIMAL(15,2),
     is_active BOOLEAN,
     loan_term_in_months INT,
