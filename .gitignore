@@ -1,0 +1,5 @@
+# Project exclude paths
+/common/target/
+/data/target/
+/data-model/target/
+/pl-services/target/

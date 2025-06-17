@@ -1,0 +1,48 @@
+Customers
+---------------
+customer_id (PK)
+first_name
+last_name
+email
+phone_number
+address
+dob
+created_at
+
+loan_applications
+--------------------
+application_id (PK)
+customer_id (FK)
+loan_amount
+loan_type
+application_date
+status (PENDING,ACCEPTED,REJECTED,IN PROCESS)
+approval_amount
+is_active
+
+
+"applicant": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": "+1234567890",
+    "dateOfBirth": "1990-01-01",
+    "address": {
+      "street": "123 Elm Street",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    }
+"loanDetails": {
+    "loanType": "Personal Loan", 
+    "loanAmount": 100000.00, 
+    "loanTermInMonths": 24,
+    "loanPurpose": "Home Renovation" 
+  },
+"incomeDetails": {
+    "monthlyIncome": 5000.00, 
+    "employmentStatus": "Employed",
+    "employerName": "XYZ Corp", 
+    "yearsAtJob": 3 
+  }
