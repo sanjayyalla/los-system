@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class AddressDaoImpl implements AddressDao {
 
-    @PersistenceContext
+
     @Autowired
     private EntityManager entityManager;
 

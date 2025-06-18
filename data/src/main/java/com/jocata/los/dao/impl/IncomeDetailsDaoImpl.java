@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class IncomeDetailsDaoImpl implements IncomeDetailsDao {
 
-    @PersistenceContext
+
     @Autowired
     private EntityManager entityManager;
 

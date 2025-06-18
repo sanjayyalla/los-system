@@ -26,8 +26,8 @@ public class LoanApplicationController {
         return null;
     }
 
-    @GetMapping("/getLoanApplicationById/{loanApplicationId}")
-    public LoanApplicationForm getLoanApplicationById(@PathVariable Integer loanApplicationId){
+    @GetMapping("/getLoanApplicationById")
+    public LoanApplicationForm getLoanApplicationById(@RequestParam Integer loanApplicationId){
         LoanApplicationForm loanApplicationForm = null;
         try {
             loanApplicationForm = service.getLoanApplicationById(loanApplicationId);
