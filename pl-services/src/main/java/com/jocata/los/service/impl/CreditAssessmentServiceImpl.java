@@ -26,13 +26,16 @@ public class CreditAssessmentServiceImpl implements CreditAssessmentService {
 
     @Override
     public String creditAssessment(String loanApplicationId) {
-        Customer customer = loanDetailsDao.getLoanApplicationById(Integer.parseInt(loanApplicationId)).getCustomer();
+        LoanApplication loanApplication = loanDetailsDao.getLoanApplicationById(Integer.parseInt(loanApplicationId));
+        if (loanApplication == null) {
+            return "Loan application not found";
+        }
+        Customer customer = loanApplication.getCustomer();
         if (customer.getCustomerId() != null) {
             String status = customer.getCibilDetails().getCreditStatus();
             if (status.equals("GOOD") || status.equals("AVERAGE")) {
                 String panNumber = customer.getPanNumber();
                 CreditReportDTO creditReportDTO = cibilService.getCibilDetailsByPanNumber(panNumber);
-                LoanApplication loanApplication = loanDetailsDao.getLoanApplicationById(Integer.parseInt(loanApplicationId));
                 IncomeDetails incomeDetails = loanApplication.getCustomer().getIncomeDetails();
                 CibilDetails cibilDetails = loanApplication.getCustomer().getCibilDetails();
                 int accountCount = cibilDetails.getNoOfActiveAccounts();
@@ -58,6 +61,9 @@ public class CreditAssessmentServiceImpl implements CreditAssessmentService {
 //                }
 
                 BigDecimal effordableAmountPerMonth = incomeDetails.getMonthlyIncome().multiply(new BigDecimal("0.75")).subtract(cibilDetails.getEmisTotal());
+                if (effordableAmountPerMonth.compareTo(BigDecimal.ZERO) <= 0) {
+                    return "Not eligible: EMIs exceed 75% of income";
+                }
                 System.out.println("Effordable per month : " + effordableAmountPerMonth);
                 BigDecimal interestAmount = new BigDecimal(0);
                 if (status.equals("GOOD")) {
