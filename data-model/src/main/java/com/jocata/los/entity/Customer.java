@@ -42,6 +42,15 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     List<LoanApplication> loanApplications;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private AadharDetails aadharDetails;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private PanDetails panDetails;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private CibilDetails cibilDetails;
+
     public Integer getCustomerId() {
         return customerId;
     }
@@ -136,5 +145,29 @@ public class Customer {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public AadharDetails getAadharDetails() {
+        return aadharDetails;
+    }
+
+    public void setAadharDetails(AadharDetails aadharDetails) {
+        this.aadharDetails = aadharDetails;
+    }
+
+    public PanDetails getPanDetails() {
+        return panDetails;
+    }
+
+    public void setPanDetails(PanDetails panDetails) {
+        this.panDetails = panDetails;
+    }
+
+    public CibilDetails getCibilDetails() {
+        return cibilDetails;
+    }
+
+    public void setCibilDetails(CibilDetails cibilDetails) {
+        this.cibilDetails = cibilDetails;
     }
 }

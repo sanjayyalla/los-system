@@ -121,4 +121,20 @@ public class LoanApplication {
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        return "LoanApplication{" +
+                "applicationId=" + applicationId +
+                ", customer=" + customer +
+                ", loanAmount=" + loanAmount +
+                ", loanType='" + loanType + '\'' +
+                ", applicationDate=" + applicationDate +
+                ", status=" + status +
+                ", approvalAmount=" + approvalAmount +
+                ", isActive=" + isActive +
+                ", loanTermInMonths=" + loanTermInMonths +
+                ", loanPurpose='" + loanPurpose + '\'' +
+                '}';
+    }
 }
