@@ -37,8 +37,8 @@ public class CibilDetails {
     @Column(name = "loan_outstanding")
     private BigDecimal loanOutstanding;
 
-    @Column(name = "overdue")
-    private BigDecimal overdue;
+    @Column(name = "emis_total")
+    private BigDecimal emisTotal;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private Timestamp createdAt;
@@ -107,12 +107,12 @@ public class CibilDetails {
         this.loanOutstanding = loanOutstanding;
     }
 
-    public BigDecimal getOverdue() {
-        return overdue;
+    public BigDecimal getEmisTotal() {
+        return emisTotal;
     }
 
-    public void setOverdue(BigDecimal overdue) {
-        this.overdue = overdue;
+    public void setEmisTotal(BigDecimal emisTotal) {
+        this.emisTotal = emisTotal;
     }
 
     public Timestamp getCreatedAt() {

@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+
 @Repository
 @Transactional
 public class LoanDetailsDaoImpl implements LoanDetailsDao {
@@ -29,5 +31,16 @@ public class LoanDetailsDaoImpl implements LoanDetailsDao {
     @Override
     public LoanApplication getLoanApplicationById(Integer applicationId) {
         return entityManager.find(LoanApplication.class, applicationId);
+    }
+
+    @Override
+    public LoanApplication updateLoanApplication(Integer loanApplicationId, BigDecimal approvedAmount) {
+        LoanApplication loanApplication = entityManager.find(LoanApplication.class, loanApplicationId);
+        if (loanApplication != null) {
+            loanApplication.setApprovalAmount(approvedAmount);
+        }
+        return loanApplication;
+
+
     }
 }

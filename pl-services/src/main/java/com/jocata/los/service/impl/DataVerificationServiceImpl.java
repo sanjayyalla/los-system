@@ -50,7 +50,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
                 if (aadharDetails.getAadharId() != null) {
                     CreditReportDTO creditReportDTO = cibilService.getCibilDetailsByPanNumber(panNumber);
                     CibilDetails cibilDetails = saveCibilDetails(creditReportDTO, customer);
-                    if(cibilDetails.getCibilId()!=null){
+                    if (cibilDetails.getCibilId() != null) {
                         return "Success";
                     }
                 }
@@ -79,16 +79,19 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         cibilDetails.setNoOfEnquiries(creditReportDTO.getEnquiries().size());
 
         BigDecimal loanOutStanding = new BigDecimal(0);
+        BigDecimal emisTotal = new BigDecimal(0);
         Integer activeAccountsCount = 0;
         for (AccountDTO accountDTO : creditReportDTO.getAccounts()) {
             if (accountDTO.getAccountStatus().equals("Active")) {
                 activeAccountsCount += 1;
+                loanOutStanding = loanOutStanding.add(new BigDecimal(accountDTO.getCurrentBalance()));
+                emisTotal = emisTotal.add(new BigDecimal(accountDTO.getEmiAmount()));
             }
-            loanOutStanding = loanOutStanding.add(new BigDecimal(accountDTO.getCurrentBalance()));
+
         }
         cibilDetails.setNoOfActiveAccounts(activeAccountsCount);
         cibilDetails.setLoanOutstanding(loanOutStanding);
-
+        cibilDetails.setEmisTotal(emisTotal);
         return dataVerificationDao.saveCibilDetails(cibilDetails);
     }
 

@@ -91,3 +91,5 @@ CREATE TABLE cibil_details (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
+ALTER TABLE cibil_details
+    RENAME COLUMN overdue TO emis_total;
