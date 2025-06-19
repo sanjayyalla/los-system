@@ -2,6 +2,7 @@ package com.jocata.los.dao.impl;
 
 import com.jocata.los.dao.LoanDetailsDao;
 import com.jocata.los.entity.LoanApplication;
+import com.jocata.los.enums.Status;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -34,10 +35,11 @@ public class LoanDetailsDaoImpl implements LoanDetailsDao {
     }
 
     @Override
-    public LoanApplication updateLoanApplication(Integer loanApplicationId, BigDecimal approvedAmount) {
+    public LoanApplication updateLoanApplication(Integer loanApplicationId, BigDecimal approvedAmount, Status loanStatus) {
         LoanApplication loanApplication = entityManager.find(LoanApplication.class, loanApplicationId);
         if (loanApplication != null) {
             loanApplication.setApprovalAmount(approvedAmount);
+            loanApplication.setStatus(loanStatus);
         }
         return loanApplication;
 

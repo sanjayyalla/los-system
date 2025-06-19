@@ -6,16 +6,14 @@ import com.jocata.los.entity.AadharDetails;
 import com.jocata.los.entity.CibilDetails;
 import com.jocata.los.entity.Customer;
 import com.jocata.los.entity.PanDetails;
-import com.jocata.los.response.AadharResponseForm;
-import com.jocata.los.response.AccountDTO;
-import com.jocata.los.response.CreditReportDTO;
-import com.jocata.los.response.PanResponseForm;
+import com.jocata.los.response.*;
 import com.jocata.los.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class DataVerificationServiceImpl implements DataVerificationService {
@@ -76,8 +74,22 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         } else {
             cibilDetails.setCreditStatus("GOOD");
         }
-        cibilDetails.setNoOfEnquiries(creditReportDTO.getEnquiries().size());
+//        cibilDetails.setNoOfEnquiries(creditReportDTO.getEnquiries().size());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
 
+        long recentEnquiryCount = creditReportDTO.getEnquiries().stream()
+                .map(EnquiryDTO::getEnquiryDate)
+                .map(dateStr -> {
+                    try {
+                        return LocalDate.parse(dateStr, formatter);
+                    } catch (Exception e) {
+                        return null; // skip if parsing fails
+                    }
+                })
+                .filter(date -> date != null && !date.isBefore(threeMonthsAgo))
+                .count();
+        cibilDetails.setNoOfEnquiries((int) recentEnquiryCount);
         BigDecimal loanOutStanding = new BigDecimal(0);
         BigDecimal emisTotal = new BigDecimal(0);
         Integer activeAccountsCount = 0;
@@ -112,6 +124,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
     }
 
     private PanDetails savePanDetails(PanResponseForm responseForm, Customer customer) {
+
         PanDetails panDetails = new PanDetails();
         panDetails.setCustomer(customer);
         panDetails.setPanNumber(responseForm.getPanDetails().getPanNumber());
