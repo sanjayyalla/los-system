@@ -1,6 +1,8 @@
 drop database los;
 CREATE DATABASE los;
 use los;
+
+
 CREATE TABLE customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100),
@@ -93,3 +95,4 @@ CREATE TABLE cibil_details (
 );
 ALTER TABLE cibil_details
     RENAME COLUMN overdue TO emis_total;
+

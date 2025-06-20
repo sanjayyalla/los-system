@@ -14,6 +14,7 @@ public class LoanApplicationController {
 
     @PostMapping("/createLoanApplication")
     public LoanApplicationForm createLoanApplication(@RequestBody LoanApplicationForm form) {
+
         LoanApplicationForm loanApplicationForm = null;
         try {
             loanApplicationForm = service.createLoanApplication(form);
@@ -27,7 +28,8 @@ public class LoanApplicationController {
     }
 
     @GetMapping("/getLoanApplicationById")
-    public LoanApplicationForm getLoanApplicationById(@RequestParam Integer loanApplicationId){
+    public LoanApplicationForm getLoanApplicationById(@RequestParam Integer loanApplicationId) {
+
         LoanApplicationForm loanApplicationForm = null;
         try {
             loanApplicationForm = service.getLoanApplicationById(loanApplicationId);

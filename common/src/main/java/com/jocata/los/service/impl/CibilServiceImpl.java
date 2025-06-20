@@ -1,6 +1,7 @@
 package com.jocata.los.service.impl;
 
 import com.jocata.los.response.CreditReportDTO;
+import com.jocata.los.response.updateCibilData.CreditReportDTOForCibilUpdate;
 import com.jocata.los.service.CibilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,18 @@ public class CibilServiceImpl implements CibilService {
     @Override
     public CreditReportDTO getCibilDetailsByPanNumber(String panNumber) {
         String url = "http://localhost:8083/cibil/api/v1/getCreditReportByPan?panNumber=" + panNumber;
-        CreditReportDTO creditReportDTO= restTemplate.getForEntity(url, CreditReportDTO.class).getBody();
+        CreditReportDTO creditReportDTO = restTemplate.getForEntity(url, CreditReportDTO.class).getBody();
         System.out.println(creditReportDTO);
         return creditReportDTO;
     }
+
+    @Override
+    public CreditReportDTOForCibilUpdate postCibilDetails(CreditReportDTOForCibilUpdate creditReportDTO) {
+        String url = "http://localhost:8083/cibil/api/v1/createCreditReport";
+        ResponseEntity<CreditReportDTOForCibilUpdate> res = restTemplate.postForEntity(url, creditReportDTO, CreditReportDTOForCibilUpdate.class);
+        CreditReportDTOForCibilUpdate creditReportDTOUpdated=res.getBody();
+        return creditReportDTOUpdated;
+
+    }
+
 }

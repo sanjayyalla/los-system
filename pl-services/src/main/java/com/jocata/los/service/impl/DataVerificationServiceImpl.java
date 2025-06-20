@@ -35,6 +35,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
 
     @Override
     public String getCustomerData(String loanApplicationId) {
+
         Customer customer = loanDetailsDao.getLoanApplicationById(Integer.parseInt(loanApplicationId)).getCustomer();
         if (customer.getAadharNumber() != null && customer.getPanNumber() != null) {
             String panNumber = customer.getPanNumber();
@@ -66,7 +67,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         cibilDetails.setCustomer(customer);
         cibilDetails.setCibilScore(Integer.valueOf(creditReportDTO.getCibilScore().getScore()));
         cibilDetails.setLastUpdated(LocalDate.now());
-        Integer cibilScore = Integer.parseInt(creditReportDTO.getCibilScore().getScore());
+        int cibilScore = Integer.parseInt(creditReportDTO.getCibilScore().getScore());
         if (cibilScore < 720) {
             cibilDetails.setCreditStatus("POOR");
         } else if (cibilScore <= 750) {
@@ -92,7 +93,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         cibilDetails.setNoOfEnquiries((int) recentEnquiryCount);
         BigDecimal loanOutStanding = new BigDecimal(0);
         BigDecimal emisTotal = new BigDecimal(0);
-        Integer activeAccountsCount = 0;
+        int activeAccountsCount = 0;
         for (AccountDTO accountDTO : creditReportDTO.getAccounts()) {
             if (accountDTO.getAccountStatus().equals("Active")) {
                 activeAccountsCount += 1;
@@ -108,6 +109,7 @@ public class DataVerificationServiceImpl implements DataVerificationService {
     }
 
     private AadharDetails saveAadharDetails(AadharResponseForm responseForm, Customer customer) {
+
         AadharDetails aadharDetails = new AadharDetails();
         aadharDetails.setCustomer(customer);
         aadharDetails.setAadharNumber(responseForm.getAadharDetails().getNumber());
@@ -119,7 +121,6 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         aadharDetails.setCity(responseForm.getAadharDetails().getAddress().getCity());
         aadharDetails.setState(responseForm.getAadharDetails().getAddress().getState());
         aadharDetails.setPincode(responseForm.getAadharDetails().getAddress().getPincode());
-
         return dataVerificationDao.saveAadharDetails(aadharDetails);
     }
 
@@ -136,7 +137,6 @@ public class DataVerificationServiceImpl implements DataVerificationService {
         panDetails.setIssuedOn(LocalDate.parse(responseForm.getPanDetails().getIssuedOn()));
         panDetails.setCategory(responseForm.getPanDetails().getCategory());
         panDetails.setAddress(responseForm.getPanDetails().getAddress());
-
         return dataVerificationDao.savePanDetails(panDetails);
     }
 }
