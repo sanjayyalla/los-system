@@ -9,7 +9,7 @@
         <version>3.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.jocata</groupId>
+    <groupId>com.lossystem</groupId>
     <artifactId>los-system</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
